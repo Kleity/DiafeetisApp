@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "571435146672",
+    "firebase_url": "https://prueba-af205.firebaseio.com",
+    "project_id": "prueba-af205",
+    "storage_bucket": "prueba-af205.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:571435146672:android:770fea9cf1f819c51b0a75",
+        "android_client_info": {
+          "package_name": "com.example.project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "571435146672-7n3tm9jdpmj88ifkuj4bg96l7t0eur39.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBNbfysZwoUkqh1I2gKSZ4dCKqIHZgw2Uk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "571435146672-7n3tm9jdpmj88ifkuj4bg96l7t0eur39.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
