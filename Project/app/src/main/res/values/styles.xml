@@ -21,6 +21,12 @@
         <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
+    <style name="NoActionBarMain" parent="AppTheme">
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
     <style name="NoActionBar" parent="AppTheme">
         <item name="android:statusBarColor">@color/background</item>
         <item name="windowActionBar">false</item>
