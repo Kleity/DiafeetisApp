@@ -37,11 +37,14 @@ class ScannerActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG)
                         .show()
-
                     val numSerie = hashMapOf<String, Any>(
                         "ns" to result.contents
                     )
-                    db.collection("${FirebaseAuth.getInstance().uid}").document("uInfo").set(numSerie, SetOptions.merge())
+                    db.collection("${FirebaseAuth.getInstance().uid}").document("ns").set(numSerie)
+
+                    val intent = Intent(this@ScannerActivity, MainActivity::class.java)
+                    startActivity(intent)
+
                 }
             } else {
                 super.onActivityResult(requestCode, resultCode, data)

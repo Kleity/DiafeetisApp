@@ -10,6 +10,8 @@ import android.widget.EditText
 import android.widget.ProgressBar
 import android.widget.Toast
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_register.*
 import java.util.*
@@ -18,8 +20,28 @@ class LoginActivity : AppCompatActivity() {
     lateinit var mEmail : EditText
     lateinit var mPassword : EditText
     lateinit var progressBar : ProgressBar
+    lateinit var db : DocumentReference
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        if(FirebaseAuth.getInstance().currentUser != null){
+            db = FirebaseFirestore.getInstance().document("TTInsole/users")
+            val nsRef = db.collection("${FirebaseAuth.getInstance().uid}").document("ns")
+            nsRef.get().addOnSuccessListener { document ->
+                if (document.data != null) {
+                    Log.d("TEST", "DocumentSnapshot data: ${document.data}")
+                    val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                    startActivity(intent)
+                } else {
+                    Log.d("TEST", "No such document")
+                    val intent = Intent(this@LoginActivity, ScannerActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+                .addOnFailureListener { exception ->
+                    Log.d("TEST", "get failed with ", exception)
+                }
+        }
+
         setTheme(R.style.NoActionBar)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
@@ -28,10 +50,7 @@ class LoginActivity : AppCompatActivity() {
         mPassword = findViewById(R.id.Password2)
         progressBar = findViewById(R.id.progressBar2)
 
-        if(FirebaseAuth.getInstance().currentUser != null){
-            val intent = Intent(this@LoginActivity, ScannerActivity::class.java)
-            startActivity(intent)
-        }
+
 
         btnAcceder.setOnClickListener(object : View.OnClickListener{
             override fun onClick(v: View?) {

@@ -10,14 +10,14 @@
         android:roundIcon="@drawable/pata"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".MainActivity"></activity>
         <activity
             android:name="com.journeyapps.barcodescanner.CaptureActivity"
             android:screenOrientation="fullSensor"
             tools:replace="screenOrientation" />
-
-        <activity android:name=".ScannerActivity"
-            android:theme="@style/NoActionBarMain">
-        </activity>
+        <activity
+            android:name=".ScannerActivity"
+            android:theme="@style/NoActionBarMain"></activity>
         <activity android:name=".RegisterActivity" />
         <activity
             android:name=".LoginActivity"
