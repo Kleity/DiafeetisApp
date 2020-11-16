@@ -16,17 +16,19 @@ import kotlinx.android.synthetic.main.activity_scanner.*
 
 class ScannerActivity : AppCompatActivity() {
     lateinit var db : DocumentReference
+    lateinit var db2 : DocumentReference
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scanner)
         db = FirebaseFirestore.getInstance().document("TTInsole/users")
+        db2 = FirebaseFirestore.getInstance().document("TTInsole/micros")
 
         btnScan.setOnClickListener{
             val scanner =  IntentIntegrator(this)
             scanner.initiateScan()
         }
     }
-
+    //Scaneo y almacenamiento de plantillas
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(resultCode == Activity.RESULT_OK){
             val result =
@@ -37,10 +39,14 @@ class ScannerActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this, "Scanned: " + result.contents, Toast.LENGTH_LONG)
                         .show()
+                    val int1: Int? = result.contents.toInt()
+                    val int2 = int1?.plus(1)
                     val numSerie = hashMapOf<String, Any>(
-                        "ns" to result.contents
+                        "nsd" to "mc" + int1,
+                        "nsi" to "mc" + int2
                     )
                     db.collection("${FirebaseAuth.getInstance().uid}").document("ns").set(numSerie)
+                    db2.collection("ns").document("${int1}").set("${FirebaseAuth.getInstance().uid}")
 
                     val intent = Intent(this@ScannerActivity, MainActivity::class.java)
                     startActivity(intent)
@@ -51,6 +57,7 @@ class ScannerActivity : AppCompatActivity() {
             }
         }
     }
+    // Cerrar sesión
     fun signout(view: View) {
         FirebaseAuth.getInstance().signOut()
         val intent = Intent(this@ScannerActivity, LoginActivity::class.java)
