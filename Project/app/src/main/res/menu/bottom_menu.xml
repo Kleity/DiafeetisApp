@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/pressFragment"
+        android:title="Presión"
+        android:icon="@drawable/ic_peso"/>
+    <item
+        android:id="@+id/tempFragment"
+        android:title="Temperatura"
+        android:icon="@drawable/ic_temp"/>
+    <item
+        android:id="@+id/perfilFragment"
+        android:title="Perfil"
+        android:icon="@drawable/ic_user"/>
+</menu>
