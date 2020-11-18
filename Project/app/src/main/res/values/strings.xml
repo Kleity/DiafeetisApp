@@ -4,6 +4,7 @@
     <string name="user_email">Email</string>
     <string name="user_pass">Contraseña</string>
     <string name="qr_scan">Escanea el código QR de tus plantillas para vincularlas.</string>
+    <string name="welcome">Bienvenido </string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

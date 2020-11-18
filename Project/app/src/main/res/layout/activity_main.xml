@@ -20,6 +20,28 @@
         app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/bottom_menu"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:layout_marginLeft="24dp">
+
+            <TextView
+                android:id="@+id/bienvenido"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="24sp"
+                android:textColor="@color/white"
+                android:text=""/>
+        </RelativeLayout>
+    </LinearLayout>
+
+
     <fragment
         android:id="@+id/fragment"
         android:name="androidx.navigation.fragment.NavHostFragment"
