@@ -3,9 +3,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PressFragment">
 
     <!-- TODO: Update blank fragment layout -->
 
+    <com.sdsmdg.harjot.vectormaster.VectorMasterView
+        android:id="@+id/vectorMasterView"
+        android:layout_width="160dp"
+        android:layout_height="420dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.854"
+        app:vector_src="@drawable/ic_piz" />
+
+    <com.sdsmdg.harjot.vectormaster.VectorMasterView
+        android:layout_width="160dp"
+        android:layout_height="420dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.736"
+        app:layout_constraintStart_toEndOf="@+id/vectorMasterView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.854"
+        app:vector_src="@drawable/ic_pder" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

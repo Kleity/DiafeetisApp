@@ -3,6 +3,7 @@ package com.example.project
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -28,7 +29,7 @@ class ScannerActivity : AppCompatActivity() {
             scanner.initiateScan()
         }
     }
-    //Scaneo y almacenamiento de plantillas
+    //Escaneo y almacenamiento de plantillas
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         if(resultCode == Activity.RESULT_OK){
             val result =
@@ -45,8 +46,10 @@ class ScannerActivity : AppCompatActivity() {
                         "nsd" to "mc" + int1,
                         "nsi" to "mc" + int2
                     )
+
+                    db2.collection("ns").document("mc1").collection("${FirebaseAuth.getInstance().uid}").document("datos").set(numSerie)
                     db.collection("${FirebaseAuth.getInstance().uid}").document("ns").set(numSerie)
-                    db2.collection("ns").document("${int1}").set("${FirebaseAuth.getInstance().uid}")
+
 
                     val intent = Intent(this@ScannerActivity, MainActivity::class.java)
                     startActivity(intent)
