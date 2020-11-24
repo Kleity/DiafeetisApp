@@ -57,21 +57,27 @@ class TempFragment : Fragment() {
                 val temp = db2.collection("ns").document("${nsd}").collection("${FirebaseAuth.getInstance().uid}").document("temp")
                 temp.get()
                     .addOnSuccessListener { document ->
-                            val array = document["tder"] as List<*>
-                            val tder = array.map { it.toInt() }.toTypedArray()
-                            println(tder)
-                            //Seleccion de riesgo
-                            for(t in tder){
-                                if(t <= 15){
-                                    println("rango 1")
-                                }
-                                if(t > 15 && t <= 20){
-                                    println("rango 2")
-                                }
-                                if(t > 20){
-                                    println("rango 3")
+                        if (document != null){
+                            val list_temp = document["tder"] as ArrayList<Number>?
+                            Log.d("PRUEBAMESTA", list_temp.toString())
+
+                            if (list_temp != null) {
+                                for (t in list_temp) {
+                                    if(t.toInt() <= 15){
+                                        println(t)
+                                        println("rango 1")
+                                    }
+                                    if(t.toInt() in 16..20){
+                                        println(t)
+                                        println("rango 2")
+                                    }
+                                    if(t.toInt() > 20){
+                                        println(t)
+                                        println("rango 3")
+                                    }
                                 }
                             }
+
                             Log.d("PRUEBA", "DocumentSnapshot data: ${document.data}")
                         } else {
                             Log.d("PRUEBA", "No such document")
