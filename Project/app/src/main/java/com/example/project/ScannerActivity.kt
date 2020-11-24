@@ -50,7 +50,6 @@ class ScannerActivity : AppCompatActivity() {
                     db2.collection("ns").document("mc1").collection("${FirebaseAuth.getInstance().uid}").document("datos").set(numSerie)
                     db.collection("${FirebaseAuth.getInstance().uid}").document("ns").set(numSerie)
 
-
                     val intent = Intent(this@ScannerActivity, MainActivity::class.java)
                     startActivity(intent)
 

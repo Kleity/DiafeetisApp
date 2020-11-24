@@ -1,10 +1,14 @@
 package com.example.project
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.DocumentReference
+import com.google.firebase.firestore.FirebaseFirestore
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -21,6 +25,9 @@ class TempFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
+    lateinit var db : DocumentReference
+    lateinit var db2 : DocumentReference
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -34,7 +41,50 @@ class TempFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_temp, container, false)
+        val view: View = inflater.inflate(R.layout.fragment_temp, container, false)
+
+        db = FirebaseFirestore.getInstance().document("TTInsole/users")
+        db2 = FirebaseFirestore.getInstance().document("TTInsole/micros")
+
+        //Obtener el mc asociado al uid
+        val ns = db.collection("${FirebaseAuth.getInstance().uid}").document("ns")
+        ns.get().addOnSuccessListener { document ->
+            if (document != null) {
+                Log.d("TEST", "DocumentSnapshot data: ${document.data}")
+                val nsd = document.getString("nsd")
+                val nsi = document.getString("nsi")
+                //Obtener el array de temperatura
+                val temp = db2.collection("ns").document("${nsd}").collection("${FirebaseAuth.getInstance().uid}").document("temp")
+                temp.get()
+                    .addOnSuccessListener { document ->
+                            val array = document["tder"] as List<*>
+                            val tder = array.map { it.toInt() }.toTypedArray()
+                            println(tder)
+                            //Seleccion de riesgo
+                            for(t in tder){
+                                if(t <= 15){
+                                    println("rango 1")
+                                }
+                                if(t > 15 && t <= 20){
+                                    println("rango 2")
+                                }
+                                if(t > 20){
+                                    println("rango 3")
+                                }
+                            }
+                            Log.d("PRUEBA", "DocumentSnapshot data: ${document.data}")
+                        } else {
+                            Log.d("PRUEBA", "No such document")
+                        }
+                    }
+                    .addOnFailureListener { exception ->
+                        Log.d("PRUEBA", "get failed with ", exception)
+                    }
+            } else {
+                Log.d("TEST", "No such document")
+            }
+        }
+        return view
     }
 
     companion object {

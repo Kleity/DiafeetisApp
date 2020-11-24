@@ -28,15 +28,15 @@ class MainActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance().document("TTInsole/users")
         usernameWelcome = findViewById(R.id.bienvenido)
 
-
+//Mensaje de bienvenida para usuario
         val username = db.collection("${FirebaseAuth.getInstance().uid}").document("uInfo")
         username.get().addOnSuccessListener { document ->
             if (document != null) {
-                Log.d("TEST", "DocumentSnapshot data: ${document.data}")
+                Log.d("WEA", "DocumentSnapshot data: ${document.data}")
                 val nombre = document.getString("name")
                 usernameWelcome.text = "Bienvenido $nombre"
             } else {
-                Log.d("TEST", "No such document")
+                Log.d("WEA", "No such document")
             }
         }
     }
