@@ -47,7 +47,8 @@ class ScannerActivity : AppCompatActivity() {
                         "nsi" to "mc" + int2
                     )
 
-                    db2.collection("ns").document("mc1").collection("${FirebaseAuth.getInstance().uid}").document("datos").set(numSerie)
+                    db2.collection("ns").document("mc${int1}").collection("${FirebaseAuth.getInstance().uid}").document("datos").set(numSerie)
+                    db2.collection("ns").document("mc${int2}").collection("${FirebaseAuth.getInstance().uid}").document("datos").set(numSerie)
                     db.collection("${FirebaseAuth.getInstance().uid}").document("ns").set(numSerie)
 
                     val intent = Intent(this@ScannerActivity, MainActivity::class.java)
