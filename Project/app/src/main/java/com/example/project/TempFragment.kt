@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.getInstance
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.sdsmdg.harjot.vectormaster.VectorMasterView
@@ -52,14 +53,14 @@ class TempFragment : Fragment() {
         db2 = FirebaseFirestore.getInstance().document("TTInsole/micros")
 
         //Obtener el mc asociado al uid
-        val ns = db.collection("${FirebaseAuth.getInstance().uid}").document("ns")
+        val ns = db.collection("${getInstance().uid}").document("ns")
         ns.get().addOnSuccessListener { document ->
             if (document != null) {
                 Log.d("TEST", "DocumentSnapshot data: ${document.data}")
                 val nsd = document.getString("nsd")
                 val nsi = document.getString("nsi")
                 //Obtener el array de temperatura Derecha
-                val tempd = db2.collection("ns").document("${nsd}").collection("${FirebaseAuth.getInstance().uid}").document("temp")
+                val tempd = db2.collection("ns").document("${nsd}").collection("${getInstance().uid}").document("temp")
                 tempd.get()
                     .addOnSuccessListener { document ->
                         if (document != null){
@@ -97,7 +98,7 @@ class TempFragment : Fragment() {
                     }
 
                 //Obtener el array de temperatura Izquierda
-                val tempi = db2.collection("ns").document("${nsi}").collection("${FirebaseAuth.getInstance().uid}").document("temp")
+                val tempi = db2.collection("ns").document("${nsi}").collection("${getInstance().uid}").document("temp")
                 tempi.get()
                     .addOnSuccessListener { document ->
                         if (document != null){

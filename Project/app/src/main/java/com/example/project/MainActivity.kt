@@ -9,8 +9,10 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuth.getInstance
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.iid.FirebaseInstanceId
 
 class MainActivity : AppCompatActivity() {
     lateinit var db: DocumentReference
@@ -29,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         usernameWelcome = findViewById(R.id.bienvenido)
 
 //Mensaje de bienvenida para usuario
-        val username = db.collection("${FirebaseAuth.getInstance().uid}").document("uInfo")
+        val username = db.collection("${getInstance().uid}").document("uInfo")
         username.get().addOnSuccessListener { document ->
             if (document != null) {
                 Log.d("WEA", "DocumentSnapshot data: ${document.data}")
@@ -37,6 +39,20 @@ class MainActivity : AppCompatActivity() {
                 usernameWelcome.text = "Bienvenido $nombre"
             } else {
                 Log.d("WEA", "No such document")
+            }
+        }
+
+        notification()
+    }
+
+    private fun notification() {
+        FirebaseInstanceId.getInstance().instanceId.addOnCompleteListener {
+            it.result?.token?.let {
+                println("TOKEN: ${it}")
+                val uToken = hashMapOf<String, Any>(
+                    "fcm" to "${it}"
+                )
+                db.collection("${getInstance().uid}").document("fcm").set(uToken)
             }
         }
     }
